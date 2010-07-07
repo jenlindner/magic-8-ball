@@ -1,5 +1,5 @@
 HOST = null; // localhost
-PORT = 8001;
+PORT = 8401;
 
 var fu = require("./fu"),
     sys = require("sys"),
@@ -7,7 +7,7 @@ var fu = require("./fu"),
     qs = require("querystring");
 
 var MESSAGE_BACKLOG = 200,
-    SESSION_TIMEOUT = 60 * 1000;
+    SESSION_TIMEOUT = 60 * 100000;
     
 //create a user for magic 8-ball
 
@@ -178,9 +178,13 @@ fu.get("/join", function (req, res) {
 
   //sys.puts("connection: " + nick + "@" + res.connection.remoteAddress);
   //channel.appendMessage(session.nick, "create_magic");
-  if (session.nick != "magic"){
+/*
+if (session.nick != "magic"){
     channel.appendMessage(session.nick, "join");
 }
+*/
+
+channel.appendMessage(session.nick, "join");
   res.simpleJSON(200, { id: session.id, nick: session.nick});
 });
 

@@ -302,7 +302,18 @@ function onConnect (session) {
 
 //add a list of present chat members to the stream
 function outputUsers () {
+/*
+	var nicks_to_output = new Array();
+	for (var i = 0; i < nicks.length; i++) {
+		//basically what i want to do is make a new array of names to output
+    if (nicks[i] != "magic") {
+      nicks_to_output.push(i);
+      break;
+    }
+  }
+*/
   var nick_string = nicks.length > 0 ? nicks.join(", ") : "(none)";
+	//var nick_string = nicks_to_output.length > 0 ? nicks_to_output.join(", ") : "(none)";
   addMessage("users:", nick_string, new Date(), "notice");
   return false;
 }
@@ -358,23 +369,28 @@ console.log("tst")
            , url: "/join"
            , data: { nick: nick }
            , error: function () {
-               alert("error connecting to server");
+               alert("join error connecting to server");
                showConnect();
              }
            , success: onConnect
            }); 
+/*
+so the magic user needs to be part of the server, not something that is in every client instance. 
+you need to check to see if there is a magic and not join if there is.
+*/
+		if (nicks.indexOf("magic") != -1){
      $.ajax({ cache: false
             , type: "GET" // XXX should be POST
             , dataType: "json"
             , url: "/join"
             , data: { nick: "magic" }
             , error: function () {
-                alert("error connecting to server");
+                alert("magic error connecting to server");
                 showConnect();
               }
             , success: onConnect
             });           
-           
+      }
     return false;
   });
 
