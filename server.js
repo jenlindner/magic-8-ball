@@ -39,18 +39,6 @@ var channel = new function () {
             magic = true;
      //     channel.call_again("magic", "msg", "hello");
             channel.appendMessage("magic", "msg", "What do you wish to know?"); 
-          //find way of not creating new magic 8-ball for each time someone types this. may need
-          //a magic 8-ball user to exist in sessions already, and just begin responding to questions when appropriate.
- 
-          //sys.puts("What do wish you to know?");
-          
-          //how to simulate magic 8-ball?
-          //create a magic 8-ball new user that comes online and responds to any msg that contains a question mark 
-          //at the end.        
-       // }else if (m.nick == "Magic 8-ball") {
-          //the random magic 8ball answers to questions
-         // m.text += "\n Signs point to no.";
-          //sys.puts("<" + nick + "> " + text);
        }else if (text.indexOf("?") != -1 && magic == true){
          channel.appendMessage("magic", "msg", magic_text[0]); 
        }else {
@@ -175,16 +163,7 @@ fu.get("/join", function (req, res) {
     res.simpleJSON(400, {error: "Nick in use"});
     return;
   }
-
-  //sys.puts("connection: " + nick + "@" + res.connection.remoteAddress);
-  //channel.appendMessage(session.nick, "create_magic");
-/*
-if (session.nick != "magic"){
-    channel.appendMessage(session.nick, "join");
-}
-*/
-
-channel.appendMessage(session.nick, "join");
+	channel.appendMessage(session.nick, "join");
   res.simpleJSON(200, { id: session.id, nick: session.nick});
 });
 
